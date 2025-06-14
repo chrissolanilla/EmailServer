@@ -6,6 +6,9 @@ const nodemailer = require('nodemailer');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const cors = require('cors');
+app.use(cors());
+
 const API_KEY = process.env.API_KEY;
 const SECRET_KEY = process.env.SECRET_KEY;
 const SENDER = process.env.SENDER;
