@@ -21,12 +21,17 @@ app.use(express.urlencoded({ extended: true }));
 
 // Mailjet transporter
 const transporter = nodemailer.createTransport({
-    host: 'in-v3.mailjet.com',
-    port: 587,
+	service: 'gmail',
     auth: {
-        user: API_KEY,
-        pass: SECRET_KEY
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS
     }
+    // host: 'in-v3.mailjet.com',
+    // port: 587,
+    // auth: {
+    //     user: API_KEY,
+    //     pass: SECRET_KEY
+    // }
 });
 
 // Email handler
@@ -42,7 +47,8 @@ app.post('/', (req, res) => {
     htmlTemplate = htmlTemplate.replace('{{report}}', report);
 
     const mailOptions = {
-        from: 'trianglepuzzle@proton.me',
+        // from: 'trianglepuzzle@proton.me',
+		from: process.env.SMTP_USER,
         to: email,
         subject: 'Your Puzzle Report',
         text: report,
